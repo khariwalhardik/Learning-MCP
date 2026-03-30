@@ -65,6 +65,27 @@ In Claude custom connector:
 - OAuth Client ID: value from `MCP_OAUTH_CLIENT_ID`
 - OAuth Client Secret: value from `MCP_OAUTH_CLIENT_SECRET`
 
+## Obsidian Local REST API Tools
+
+Configure `.env`:
+
+```bash
+OBSIDIAN_API_BASE_URL="https://127.0.0.1:27124"
+OBSIDIAN_API_KEY="<your-obsidian-local-rest-api-key>"
+OBSIDIAN_VERIFY_TLS="0"
+OBSIDIAN_TIMEOUT_SECONDS="15"
+```
+
+Available MCP tools:
+
+- `obsidian_status`: Check whether Obsidian REST API is reachable.
+- `obsidian_list(path="")`: List files/folders under a vault path.
+- `obsidian_read(path)`: Read note/file contents.
+- `obsidian_write(path, content)`: Create or overwrite a note/file.
+- `obsidian_patch(path, operation, target_type, target, content)`: Patch by heading/block/frontmatter.
+- `obsidian_delete(path)`: Delete a note/file.
+- `obsidian_create_folder(path)`: Create a folder.
+
 ### Test Tools Added
 
 - `echo(message: str) -> str`: Returns the same message.
