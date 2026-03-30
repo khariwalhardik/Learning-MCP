@@ -1,3 +1,57 @@
+## Run MCP Server Only (for Claude Custom + ngrok)
+
+If you only want to run the MCP server and test tools directly:
+
+1. Activate your virtual environment:
+
+```bash
+source .venv/bin/activate
+```
+
+2. Start the server over HTTP transport:
+
+```bash
+MCP_TRANSPORT=streamable-http python mcp_server.py
+```
+
+3. In a separate terminal, expose it with ngrok:
+
+```bash
+ngrok http 8000
+```
+
+4. Use the ngrok HTTPS URL in Claude Custom MCP server setup.
+
+### Optional Security (Bearer Token Gate)
+
+You can protect the MCP endpoint with a static bearer token.
+
+Set these in `.env`:
+
+```bash
+MCP_AUTH_BEARER_TOKEN="replace-with-long-random-token"
+MCP_AUTH_ISSUER_URL="https://your-auth-domain.example"
+MCP_AUTH_RESOURCE_SERVER_URL="https://your-ngrok-domain.ngrok-free.dev"
+MCP_AUTH_REQUIRED_SCOPES="mcp:access"
+```
+
+Notes:
+
+- If `MCP_AUTH_BEARER_TOKEN` is empty, auth is disabled.
+- If `MCP_AUTH_BEARER_TOKEN` is set, both `MCP_AUTH_ISSUER_URL` and `MCP_AUTH_RESOURCE_SERVER_URL` are required.
+- This is token-gate security, not a full OAuth authorization server flow.
+- For Claude custom connector OAuth fields, leave Client ID/Secret empty unless you implement a full OAuth provider.
+
+### Test Tools Added
+
+- `echo(message: str) -> str`: Returns the same message.
+- `input_output(user_input: str, mode: str = "none") -> dict`: Returns input and transformed output.
+
+Supported `mode` values:
+
+- `none` (default): output equals input
+- `upper`: output converted to uppercase
+- `lower`: output converted to lowercase
 # MCP Chat
 
 MCP Chat is a command-line interface application that enables interactive chat capabilities with AI models through the Anthropic API. The application supports document retrieval, command-based prompts, and extensible tool integrations via the MCP (Model Control Protocol) architecture.
