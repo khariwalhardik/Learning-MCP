@@ -42,6 +42,29 @@ Notes:
 - This is token-gate security, not a full OAuth authorization server flow.
 - For Claude custom connector OAuth fields, leave Client ID/Secret empty unless you implement a full OAuth provider.
 
+### Full OAuth Mode (Client ID/Secret)
+
+This project also supports full OAuth authorization-code + refresh-token flow for Claude custom connectors.
+
+Set these in `.env`:
+
+```bash
+MCP_OAUTH_ENABLED="1"
+MCP_OAUTH_CLIENT_ID="nexus-claude-client"
+MCP_OAUTH_CLIENT_SECRET="<your-secret>"
+MCP_OAUTH_ALLOWED_REDIRECT_HOSTS="claude.ai"
+MCP_OAUTH_ALLOW_DYNAMIC_CLIENT_REGISTRATION="0"
+MCP_AUTH_ISSUER_URL="https://your-ngrok-domain.ngrok-free.dev"
+MCP_AUTH_RESOURCE_SERVER_URL="https://your-ngrok-domain.ngrok-free.dev"
+MCP_AUTH_REQUIRED_SCOPES="mcp:access"
+```
+
+In Claude custom connector:
+
+- Remote MCP server URL: `https://your-ngrok-domain.ngrok-free.dev/mcp`
+- OAuth Client ID: value from `MCP_OAUTH_CLIENT_ID`
+- OAuth Client Secret: value from `MCP_OAUTH_CLIENT_SECRET`
+
 ### Test Tools Added
 
 - `echo(message: str) -> str`: Returns the same message.
