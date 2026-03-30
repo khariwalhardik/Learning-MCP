@@ -4,7 +4,7 @@ from pydantic import Field
 def register_testing_tools(mcp, log_event):
     @mcp.tool(
         name="echo",
-        description="Return the same text you send. Useful for MCP connectivity tests.",
+        description="Return the same text you send. Useful for MCP connectivity testing.",
     )
     def echo(
         message: str = Field(description="Message to echo back"),
